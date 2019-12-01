@@ -3,13 +3,14 @@ import request from 'request-promise-native';
 import { getProfileData, getProfile, getProfileId } from '../pritunl';
 import { path, getBaseHeaders } from './utils';
 import { getUsername } from '../env';
+import { Maybe } from '../types';
 
 type RequestPayload = {
   id: string;
   password: string;
   data: string;
   reconnect: boolean;
-  server_box_public_key?: string | void;
+  server_box_public_key?: Maybe<string>;
   server_public_key: string;
   timeout: boolean;
   token_ttl: number;

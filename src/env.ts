@@ -15,7 +15,7 @@ export const getPritunlResourcePath = () => {
 };
 
 export const getServiceWait = (): number => {
-  const wait = parseInt(process.env.PRITUNL_TIMEOUT, 10);
+  const wait = parseInt(process.env.PRITUNL_TIMEOUT || '', 10);
   return wait || 10000;
 };
 

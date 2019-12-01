@@ -1,6 +1,7 @@
 import WebSocket from 'ws';
 import { getBaseHeaders, path } from './utils';
 import { getServiceWait, getDebug } from '../env';
+import { Maybe } from '../types';
 
 type UnusedReturn = any;
 type ServiceEvent = {
@@ -13,7 +14,7 @@ type ServiceEvent = {
     | 'auth_error'
     | 'inactive'
     | 'timeout_error';
-  data: EventData | void;
+  data: Maybe<EventData>;
 };
 type EventData = {
   id: string; // ProfileId
@@ -22,7 +23,7 @@ type EventData = {
   timestamp?: number;
   server_addr?: string;
   client_addr?: string;
-  output?: string | void;
+  output?: Maybe<string>;
 };
 type EventHandler = (event: {}) => UnusedReturn;
 type ErrorHandler = (error: Error) => UnusedReturn;
@@ -36,9 +37,10 @@ export enum WaitResult {
   Unknown,
 }
 
-let socket: WebSocket;
+let socket: Maybe<WebSocket>;
 
 const addHandler = (handler: EventHandler) => {
+  if (!socket) throw new Error('No socket available for addHandler');
   socket.on('message', function(data: any) {
     data = JSON.parse(data);
     handler(data);
@@ -64,7 +66,7 @@ const subscribe = (handler: EventHandler, onError: ErrorHandler, onClose: CloseH
 let waitTimeout: NodeJS.Timeout;
 
 const close = () => {
-  socket.terminate();
+  if (socket) socket.terminate();
   socket = null;
   if (waitTimeout) clearTimeout(waitTimeout);
 };
@@ -110,7 +112,7 @@ export const waitForConnect = (timeout: number = getServiceWait()): Promise<Wait
           }
           break;
         case 'wakeup':
-          socket.send('awake');
+          if (socket) socket.send('awake');
           break;
         case 'auth_error':
           safeResolve(WaitResult.AuthFailure);

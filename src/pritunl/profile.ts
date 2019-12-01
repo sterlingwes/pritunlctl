@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { execSync } from 'child_process';
+import { Maybe } from '../types';
 
 const PROFILE_PATH = `${process.env.HOME}/Library/Application Support/pritunl/profiles`;
 
@@ -26,7 +27,7 @@ const getProfileOvpnPath = (): string => {
 };
 
 interface Profile {
-  name: string | void;
+  name: Maybe<string>;
   organization_id: string;
   organization: string;
   server_id: string;

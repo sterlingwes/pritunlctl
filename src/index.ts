@@ -21,7 +21,7 @@ const printExit = (msg: string, code: number = 1) => {
 };
 
 const appName = `pritnlctl v${getPackageVersion()}`;
-const command = process.argv.pop();
+const command = process.argv.pop() || '';
 const SupportedCommands = ['start', 'stop', 'help'];
 
 const messages = {
