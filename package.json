@@ -1,0 +1,22 @@
+{
+  "name": "pritunlctl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:sterlingwes/pritunl-cli.git",
+  "author": "Wes Johnson <wjohnson@wealthsimple.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "rimraf ./dist && tsc -w"
+  },
+  "dependencies": {
+    "@types/request": "^2.48.3",
+    "@types/request-promise-native": "^1.0.17",
+    "@types/ws": "^6.0.4",
+    "ora": "^4.0.3",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.8",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.7.2",
+    "ws": "^7.2.0"
+  }
+}
