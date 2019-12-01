@@ -402,6 +402,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jssha@^2.3.0:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/jssha/-/jssha-2.3.1.tgz#147b2125369035ca4b2f7d210dc539f009b3de9a"
+  integrity sha1-FHshJTaQNcpLL30hDcU58Amz3po=
+
 lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
@@ -618,6 +623,13 @@ supports-color@^7.1.0:
   integrity sha512-oRSIpR8pxT1Wr2FquTNnGet79b3BWljqOuoW/h4oBhxJ/HUbX5nX6JSruTkvXDCFMwDPvsaTTbvMLKZWSy0R5g==
   dependencies:
     has-flag "^4.0.0"
+
+totp-generator@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/totp-generator/-/totp-generator-0.0.7.tgz#51293d9da09e63cb44b773b6843522dd31d701ed"
+  integrity sha512-ci1dZ6e2QDIaNVwUpwGrwEif600gZL0zaHR/19BIeuC2iVcnlaou7U8r7uyJTSSgYLbd16tSlnCmf+ojg6Wv3w==
+  dependencies:
+    jssha "^2.3.0"
 
 tough-cookie@^2.3.3:
   version "2.5.0"

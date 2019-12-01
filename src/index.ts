@@ -11,6 +11,7 @@ import {
 } from './service-interface';
 import { prompt, getPackageVersion, sleep } from './cli-utils';
 import { getServiceAddress, getServiceWait } from './env';
+import { getKey, setKey, rmKey } from './keychain';
 
 const print = (msg: string) => console.log(msg);
 const printNewline = () => console.log();
@@ -22,7 +23,7 @@ const printExit = (msg: string, code: number = 1) => {
 
 const appName = `pritnlctl v${getPackageVersion()}`;
 const command = process.argv.pop() || '';
-const SupportedCommands = ['start', 'stop', 'help'];
+const SupportedCommands = ['start', 'stop', 'config', 'help'];
 
 const messages = {
   ping: {
@@ -51,6 +52,7 @@ const printStatus = (statusResult: ConnectionStatus) => {
 
 const printHelp = () => {
   printNewline();
+  print(appName);
   print('Usage: pritunlctl <command>');
   printNewline();
   print('commands:');
@@ -70,7 +72,15 @@ const start = async () => {
     return;
   }
 
-  const otp = await prompt('Enter OTP code');
+  let otp;
+  const totp = require('totp-generator');
+  const otpToken = getKey();
+  if (otpToken) {
+    otp = totp(otpToken);
+  } else {
+    otp = await prompt('Enter OTP code');
+  }
+
   const spinner = Spinner('Establishing connection...').start();
   await connect(otp);
   const waitResult = await waitForConnect();
@@ -103,11 +113,19 @@ const stop = async () => {
 };
 
 const run = async () => {
-  printNewline();
-  print(appName);
-
   if (command === 'help' || unrecognizedCommand()) {
     return printHelp();
+  }
+
+  if (command === 'config') {
+    print('pritunlctl can generate your OTP code from a token saved on your keychain');
+    const token = await prompt('Enter your Pritunl OTP token (leave empty to delete)');
+    if (token) {
+      setKey(token);
+    } else {
+      rmKey();
+    }
+    return;
   }
 
   const pingResult = await ping();

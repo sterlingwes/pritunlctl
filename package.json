@@ -16,6 +16,7 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
     "rimraf": "^3.0.0",
+    "totp-generator": "^0.0.7",
     "typescript": "^3.7.2",
     "ws": "^7.2.0"
   }
