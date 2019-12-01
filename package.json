@@ -8,6 +8,9 @@
   "scripts": {
     "start": "rimraf ./dist && tsc -w"
   },
+  "bin": {
+    "pritunlctl": "./bin/pritunlctl.js"
+  },
   "dependencies": {
     "@types/request": "^2.48.3",
     "@types/request-promise-native": "^1.0.17",
