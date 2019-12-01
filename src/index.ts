@@ -51,10 +51,7 @@ const printStatus = (statusResult: ConnectionStatus) => {
 
 const printHelp = () => {
   printNewline();
-  print('Usage: pritunlctl');
-  printNewline();
-  print('with no arguments, attempts to start VPN connection if down');
-  print('prints status regardless');
+  print('Usage: pritunlctl <command>');
   printNewline();
   print('commands:');
   printNewline();
