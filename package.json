@@ -1,6 +1,6 @@
 {
   "name": "pritunlctl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/service-interface",
   "repository": "git@github.com:sterlingwes/pritunl-cli.git",
   "author": "Wes Johnson <wjohnson@wealthsimple.com>",
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "start": "rimraf ./dist && tsc -w",
-    "build": "rimraf ./.dist && tsc --declaration"
+    "build": "rimraf ./dist && tsc --declaration"
   },
   "bin": {
     "pritunlctl": "./bin/pritunlctl.js"

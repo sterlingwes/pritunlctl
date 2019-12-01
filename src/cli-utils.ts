@@ -1,5 +1,6 @@
 import readline from 'readline';
 import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 export const prompt = (message: string): Promise<string> => {
   const rl = readline.createInterface({
@@ -16,7 +17,8 @@ export const prompt = (message: string): Promise<string> => {
 };
 
 export const getPackageVersion = () => {
-  const manifest = readFileSync('package.json', { encoding: 'utf8' });
+  const manifestPath = resolve(__dirname, '..', 'package.json');
+  const manifest = readFileSync(manifestPath, { encoding: 'utf8' });
   return JSON.parse(manifest).version;
 };
 
