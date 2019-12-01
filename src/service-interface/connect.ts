@@ -28,6 +28,7 @@ const makePayload = (password: string): RequestPayload => {
     reconnect: true,
     timeout: true,
     token_ttl,
+    server_box_public_key: null,
     server_public_key: server_public_key.join('\n'),
     username: getUsername(),
     password,
