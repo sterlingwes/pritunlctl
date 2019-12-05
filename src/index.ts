@@ -10,7 +10,7 @@ import {
   WaitResult,
 } from './service-interface';
 import { prompt, getPackageVersion, sleep } from './cli-utils';
-import { getServiceAddress, getServiceWait } from './env';
+import { getServiceAddress, getServiceWait, resolveConnectionMode } from './env';
 import { getKey, setKey, rmKey } from './keychain';
 
 const print = (msg: string) => console.log(msg);
@@ -127,6 +127,8 @@ const run = async () => {
     }
     return;
   }
+
+  await resolveConnectionMode();
 
   const pingResult = await ping();
   if (pingResult !== PingResult.Up) {

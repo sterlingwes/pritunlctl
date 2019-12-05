@@ -1,5 +1,5 @@
 import WebSocket from 'ws';
-import { getBaseHeaders, path } from './utils';
+import { getBaseHeaders, socketPath } from './utils';
 import { getServiceWait, getDebug } from '../env';
 import { Maybe } from '../types';
 
@@ -48,7 +48,7 @@ const addHandler = (handler: EventHandler) => {
 };
 
 const subscribe = (handler: EventHandler, onError: ErrorHandler, onClose: CloseHandler) => {
-  const url = path('events');
+  const url = socketPath('events');
 
   if (!socket) {
     socket = new WebSocket(url, {

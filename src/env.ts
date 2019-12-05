@@ -1,5 +1,28 @@
+import { existsSync } from 'fs';
+
+let unixSocket = false;
+const unixPath = '/var/run/pritunl.sock';
+const serviceHost = '127.0.0.1:9770';
+
+export const resolveConnectionMode = async () => {
+  unixSocket = existsSync(unixPath);
+  return unixSocket;
+};
+
+export const shouldUseSocket = () => unixSocket;
+
 export const getServiceAddress = () => {
-  return process.env.PRITUNL_SERVICE_ADDRESS || 'http://127.0.0.1:9770';
+  return (
+    process.env.PRITUNL_SERVICE_ADDRESS ||
+    (unixSocket ? `http://unix:${unixPath}:` : `http://${serviceHost}`)
+  );
+};
+
+export const getServiceSocketAddress = () => {
+  return (
+    process.env.PRITUNL_SERVICE_SOCKET_ADDRESS ||
+    (unixSocket ? `ws+unix://${unixPath}:` : `ws://${serviceHost}`)
+  );
 };
 
 export const getUsername = () => {
@@ -16,7 +39,7 @@ export const getPritunlResourcePath = () => {
 
 export const getServiceWait = (): number => {
   const wait = parseInt(process.env.PRITUNL_TIMEOUT || '', 10);
-  return wait || 10000;
+  return wait || 15000;
 };
 
 export const getDebug = (): boolean => {
