@@ -23,6 +23,7 @@ const printExit = (msg: string, code: number = 1) => {
 
 const appName = `pritnlctl v${getPackageVersion()}`;
 const command = process.argv.pop() || '';
+const interactive = process.argv.includes('--non-interactive') === false;
 const SupportedCommands = ['start', 'stop', 'config', 'help'];
 
 const messages = {
@@ -77,8 +78,11 @@ const start = async () => {
   const otpToken = getKey();
   if (otpToken) {
     otp = totp(otpToken);
-  } else {
+  } else if (interactive) {
     otp = await prompt('Enter OTP code');
+  } else {
+    print('To auto-connect to the VPN, configure your OTP token with "pritunlctl config"');
+    return;
   }
 
   const spinner = Spinner('Establishing connection...').start();
