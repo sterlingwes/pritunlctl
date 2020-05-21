@@ -10,6 +10,9 @@ const getProfiles = () => {
 };
 
 export const getProfileId = (): string => {
+  if (process.env.PRITUNL_CTL_PROFILE_ID) {
+    return process.env.PRITUNL_CTL_PROFILE_ID;
+  }
   const profile = getProfiles()[0];
   if (!profile) throw new Error('Could not find Pritunl profile.');
   const [profileId] = profile.split('.');
