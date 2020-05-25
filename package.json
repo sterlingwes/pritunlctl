@@ -1,6 +1,6 @@
 {
   "name": "pritunlctl",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "dist/service-interface",
   "repository": "git@github.com:sterlingwes/pritunl-cli.git",
   "author": "Wes Johnson <wjohnson@wealthsimple.com>",
