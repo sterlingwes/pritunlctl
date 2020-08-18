@@ -41,7 +41,7 @@ let socket: Maybe<WebSocket>;
 
 const addHandler = (handler: EventHandler) => {
   if (!socket) throw new Error('No socket available for addHandler');
-  socket.on('message', function(data: any) {
+  socket.on('message', function (data: any) {
     data = JSON.parse(data);
     handler(data);
   });

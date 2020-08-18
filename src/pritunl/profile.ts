@@ -6,7 +6,7 @@ const PROFILE_PATH = `${process.env.HOME}/Library/Application Support/pritunl/pr
 
 const getProfiles = () => {
   const contents = fs.readdirSync(PROFILE_PATH);
-  return contents.filter(file => /\.conf$/.test(file));
+  return contents.filter((file) => /\.conf$/.test(file));
 };
 
 export const getProfileId = (): string => {
@@ -29,7 +29,7 @@ const getProfileOvpnPath = (): string => {
   return `${PROFILE_PATH}/${profile}.ovpn`;
 };
 
-interface Profile {
+export interface Profile {
   name: Maybe<string>;
   organization_id: string;
   organization: string;

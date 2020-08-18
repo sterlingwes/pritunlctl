@@ -24,12 +24,15 @@ Usage: pritunlctl <command>
 commands:
 
 - start
+- auto
 - stop
 - config
 - help
 ```
 
 `start` will prompt you for your OTP code, unless you use `config` to set your Pritunl OTP token on your keychain for auto-generated codes.
+
+`auto` will attempt to connect without an OTP code / password provided your profile supports it.
 
 ## Caveats
 

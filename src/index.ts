@@ -24,7 +24,7 @@ const printExit = (msg: string, code: number = 1) => {
 const appName = `pritnlctl v${getPackageVersion()}`;
 const command = process.argv.pop() || '';
 const interactive = process.argv.includes('--non-interactive') === false;
-const SupportedCommands = ['start', 'stop', 'config', 'help'];
+const SupportedCommands = ['start', 'auto', 'stop', 'config', 'help'];
 
 const messages = {
   ping: {
@@ -58,7 +58,7 @@ const printHelp = () => {
   printNewline();
   print('commands:');
   printNewline();
-  SupportedCommands.map(key => print(`- ${key}`));
+  SupportedCommands.map((key) => print(`- ${key}`));
   printNewline();
 };
 
@@ -66,12 +66,36 @@ const unrecognizedCommand = () => {
   return SupportedCommands.includes(command) === false;
 };
 
-const start = async () => {
+const checkConnection = async (): Promise<boolean> => {
   const statusResult = await status();
   if (statusResult === ConnectionStatus.UP) {
     printStatus(statusResult);
+    return true;
+  }
+  return false;
+};
+
+const renderStatusUpdates = async (spinner: Spinner.Ora, timeout?: number) => {
+  const waitResult = await waitForConnect(timeout);
+  if (waitResult === WaitResult.Connected) {
+    spinner.succeed('VPN connected');
     return;
   }
+
+  spinner.warn(messages.events[waitResult]);
+  printNewline();
+};
+
+const autoStart = async () => {
+  if (await checkConnection()) return;
+
+  const spinner = Spinner('Establishing connection...').start();
+  await connect();
+  await renderStatusUpdates(spinner, 40000);
+};
+
+const start = async () => {
+  if (await checkConnection()) return;
 
   let otp;
   const totp = require('totp-generator');
@@ -87,14 +111,7 @@ const start = async () => {
 
   const spinner = Spinner('Establishing connection...').start();
   await connect(otp);
-  const waitResult = await waitForConnect();
-  if (waitResult === WaitResult.Connected) {
-    spinner.succeed('VPN connected');
-    return;
-  }
-
-  spinner.warn(messages.events[waitResult]);
-  printNewline();
+  await renderStatusUpdates(spinner);
 };
 
 const stop = async () => {
@@ -141,6 +158,11 @@ const run = async () => {
 
   if (command === 'stop') {
     await stop();
+    return;
+  }
+
+  if (command === 'auto') {
+    await autoStart();
     return;
   }
 
