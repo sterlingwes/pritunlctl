@@ -32,15 +32,16 @@ commands:
 
 `start` will prompt you for your OTP code, unless you use `config` to set your Pritunl OTP token on your keychain for auto-generated codes.
 
-`auto` will attempt to connect without an OTP code / password provided your profile supports it.
+`auto` will attempt to connect without an OTP code or password provided your profile supports it.
 
 ## Caveats
 
-* This has only been tested on a MacOS environment with a profile that uses the OTP auth method.
+* Does not support all connection methods (just OTP with `start` and push 2FA with `auto`)
 * It assumes you have the Pritunl GUI app installed with a profile already configured.
 * This software relies on the filesystem set by the Pritunl app which may be subject to change in future versions.
 
 Verified compatible with these Pritunl client versions:
 
+* `v1.0.2440.93`
 * `v1.0.2226.23`
 * `v1.0.1953.32`
