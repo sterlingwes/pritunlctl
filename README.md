@@ -42,6 +42,7 @@ commands:
 
 Verified compatible with these Pritunl client versions:
 
+* `v1.2.2897.44`
 * `v1.0.2440.93`
 * `v1.0.2226.23`
 * `v1.0.1953.32`
