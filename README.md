@@ -2,7 +2,7 @@ Deprecated :warning:
 
 pritunl-client now has its own CLI: https://docs.pritunl.com/docs/command-line-interface
 
-This CLI will only work for older versions of the pritunl GUI, see below under Caveats.
+pritunlctl will only work for older versions of the pritunl GUI, see below under Caveats.
 
 ---
 
