@@ -1,3 +1,11 @@
+Deprecated :warning:
+
+pritunl-client now has its own CLI: https://docs.pritunl.com/docs/command-line-interface
+
+This CLI will only work for older versions of the pritunl GUI, see below under Caveats.
+
+---
+
 # Unofficial CLI for Pritunl
 
 With support for starting & stopping a VPN connection managed by [the Pritunl app](https://client.pritunl.com/).
@@ -42,7 +50,10 @@ commands:
 
 Verified compatible with these Pritunl client versions:
 
-* `v1.2.2897.44`
 * `v1.0.2440.93`
 * `v1.0.2226.23`
 * `v1.0.1953.32`
+
+Verified incompatible:
+
+* `v1.2.2897.44`
